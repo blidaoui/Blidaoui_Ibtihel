@@ -2,10 +2,23 @@ import { Briefcase } from "lucide-react";
 
 const experiences = [
   {
+    role: "Full-Stack & AI Developer Intern",
+    company: "Softavera",
+    period: "09/2026 – Present",
+    location: "Golâa, Douz, Tunisia",
+    bullets: [
+      "Building an AI-powered recruitment web platform: React interface, Node.js/Express REST API, PostgreSQL database and a separate AI service",
+      "Designed the matching pipeline: CV parsing, skill extraction, then candidate-to-offer matching",
+      "Set up the application architecture (interface / API / AI service separation) and Google-based authentication",
+    ],
+    tone: "from-blossom-50 to-white",
+    accent: "bg-blossom-100 text-blossom-600",
+  },
+  {
     role: "Full-Stack Developer Intern",
     company: "AURES Group",
     period: "02/2024 – 05/2024",
-    location: "Kebili, Tunisia",
+    location: "Golâa, Douz, Tunisia",
     bullets: [
       "Designed and built a full-stack click-and-collect restaurant ordering system with Next.js and NestJS",
       "Implemented secure online payment and real-time delivery tracking",
@@ -19,7 +32,7 @@ const experiences = [
     role: "Full-Stack Developer Intern",
     company: "AURES Group",
     period: "07/2023 – 08/2023",
-    location: "Kebili, Tunisia",
+    location: "Golâa, Douz, Tunisia",
     bullets: [
       "Built responsive React + Node.js applications with REST APIs",
       "Delivered UI components and backend features for internal projects",

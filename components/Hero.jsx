@@ -19,14 +19,13 @@ export default function Hero() {
         <div className="inline-flex items-center gap-2 rounded-full glass-card px-4 py-1.5 mb-8 shadow-soft">
           <Sparkles size={16} className="text-blossom-500" />
           <span className="font-body font-semibold text-sm text-ink-700">
-            Open to new opportunities
-          </span>
+            Open to internship opportunities — remote or on-site          </span>
         </div>
 
         <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl leading-tight text-ink-900">
           Hi, I&rsquo;m <span className="gradient-text">Ibtihel</span>
           <br className="hidden sm:block" />
-          and I build secure, user-friendly web applications.
+          and I build secure, AI-powered web applications.
         </h1>
 
         <p className="mt-6 max-w-2xl mx-auto font-body text-base sm:text-lg text-ink-700">
@@ -44,7 +43,7 @@ export default function Hero() {
               className="transition-transform group-hover:translate-x-1"
             />
           </a>
-         
+
         </div>
       </div>
     </section>

@@ -1,4 +1,4 @@
-import { Code2, Layers, Database, ShieldCheck, Wrench } from "lucide-react";
+import { Code2, Layers, Database, ShieldCheck, Wrench, Sparkles } from "lucide-react";
 
 const skillGroups = [
   {
@@ -31,6 +31,13 @@ const skillGroups = [
     tone: "from-skyblue-100 to-skyblue-50",
     iconTone: "text-skyblue-600 bg-skyblue-100",
     skills: ["PostgreSQL", "MySQL", "Firebase"],
+  },
+  {
+    icon: Sparkles,
+    title: "AI",
+    tone: "from-violet-100 to-violet-50",
+    iconTone: "text-violet-600 bg-violet-100",
+    skills: ["CV Parsing", "Skill Extraction", "Matching Algorithms", "Computer Vision", "Speech Recognition"],
   },
   {
     icon: ShieldCheck,

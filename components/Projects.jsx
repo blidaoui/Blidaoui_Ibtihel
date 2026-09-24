@@ -12,6 +12,7 @@ const projects = [
     statusTone: "bg-blossom-100 text-blossom-600",
     cardTone: "from-lavender-100 via-blossom-50 to-skyblue-50",
     featured: true,
+    repoUrl: "https://github.com/blidaoui/haor", // TODO: replace with the real repo URL
   },
   {
     icon: ShoppingBag,
@@ -23,6 +24,7 @@ const projects = [
     status: "Internship project",
     statusTone: "bg-skyblue-100 text-skyblue-600",
     cardTone: "from-skyblue-50 to-white",
+    repoUrl: "https://github.com/blidaoui/aures-click-and-collect", // TODO: replace with the real repo URL
   },
   {
     icon: Bug,
@@ -34,6 +36,7 @@ const projects = [
     status: "Security analysis",
     statusTone: "bg-lavender-100 text-lavender-600",
     cardTone: "from-lavender-50 to-white",
+    repoUrl: "https://github.com/blidaoui/blind-sqli-assessment", // TODO: replace with the real repo URL
   },
 ];
 
@@ -76,9 +79,8 @@ function ProjectCard({ project, large }) {
   const Icon = project.icon;
   return (
     <div
-      className={`group relative rounded-4xl border border-lavender-100 bg-gradient-to-br ${project.cardTone} p-7 sm:p-8 shadow-soft hover:shadow-glow-hover hover:-translate-y-1.5 transition-all duration-300 ${
-        large ? "md:p-10" : ""
-      }`}
+      className={`group relative rounded-4xl border border-lavender-100 bg-gradient-to-br ${project.cardTone} p-7 sm:p-8 shadow-soft hover:shadow-glow-hover hover:-translate-y-1.5 transition-all duration-300 ${large ? "md:p-10" : ""
+        }`}
     >
       <div className="flex items-start justify-between gap-4 mb-5">
         <div className="w-12 h-12 rounded-2xl bg-white/80 shadow-sm flex items-center justify-center text-lavender-600">
@@ -92,9 +94,8 @@ function ProjectCard({ project, large }) {
       </div>
 
       <h3
-        className={`font-display font-bold text-ink-900 ${
-          large ? "text-2xl sm:text-3xl" : "text-xl"
-        }`}
+        className={`font-display font-bold text-ink-900 ${large ? "text-2xl sm:text-3xl" : "text-xl"
+          }`}
       >
         {project.title}
       </h3>
@@ -115,7 +116,7 @@ function ProjectCard({ project, large }) {
       </div>
 
       <a
-        href="https://github.com/blidaoui"
+        href={project.repoUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="mt-6 inline-flex items-center gap-1.5 text-sm font-display font-semibold text-lavender-600 hover:text-blossom-600 transition-colors"

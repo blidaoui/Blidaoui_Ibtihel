@@ -1,7 +1,7 @@
 import { MapPin, GraduationCap, Languages } from "lucide-react";
 
 const chips = [
-  { icon: MapPin, label: "Kebili, Tunisia" },
+  { icon: MapPin, label: "Kebili, Tunisie" },
   { icon: GraduationCap, label: "Software Engineering, ESSAT" },
   { icon: Languages, label: "Arabic · French · English" },
 ];
@@ -15,8 +15,7 @@ export default function About() {
             About me
           </span>
           <h2 className="mt-3 font-display font-bold text-3xl sm:text-4xl text-ink-900">
-            Secure full-stack development with real project impact
-          </h2>
+            Secure, AI-powered full-stack development with real project impact          </h2>
         </div>
 
         <div className="glass-card-soft rounded-5xl shadow-soft p-6 sm:p-10 md:p-12 grid md:grid-cols-[auto_1fr] gap-10 items-center bg-gradient-to-br from-lavender-50 via-blossom-50 to-skyblue-50">
@@ -34,10 +33,13 @@ export default function About() {
 
           <div>
             <p className="font-body text-ink-700 text-base sm:text-lg leading-relaxed">
-              Software engineering student with hands-on full-stack experience across two internships, building production features end-to-end &mdash; from REST APIs in NestJS to responsive interfaces in Next.js and React, backed by PostgreSQL.
-            </p>
+              Software engineering student with hands-on full-stack experience across three internships, building production features end-to-end — from REST APIs in NestJS and Node.js/Express to responsive interfaces in Next.js and React, backed by PostgreSQL.            </p>
             <p className="mt-4 font-body text-ink-700 text-base sm:text-lg leading-relaxed">
-              Built a contact-free, gesture- and voice-controlled system for operating-room equipment, combining computer vision and speech recognition. Comfortable owning a feature across the stack, working in Agile teams, and writing secure, maintainable code.
+              Currently building the AI service of a recruitment platform — parsing CVs, extracting skills, and matching candidates to job offers. Also built a contact-free, gesture- and voice-controlled system for operating-room equipment, combining computer vision and speech recognition.
+            </p>
+
+            <p className="mt-4 font-body text-ink-700 text-base sm:text-lg leading-relaxed">
+              Comfortable owning a feature across the stack, working in Agile teams, and writing secure, maintainable code.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-3">

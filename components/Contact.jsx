@@ -37,9 +37,7 @@ export default function Contact() {
             Let&rsquo;s build something together
           </h2>
           <p className="mt-4 font-body text-ink-700 max-w-xl mx-auto">
-            I&rsquo;m looking for my first full-time role as a software
-            engineer. If your team needs a full-stack developer with a soft
-            spot for secure systems, I&rsquo;d love to hear from you.
+            I&rsquo;mlooking for an international internship, remote or on-site, in full-stack or AI-driven development. If your team needs a developer comfortable across the stack, with a growing focus on AI, I&rsquo;d love to hear from you.
           </p>
         </div>
 
@@ -65,7 +63,7 @@ export default function Contact() {
             <div className="rounded-3xl border border-blossom-100 bg-gradient-to-br from-blossom-50 to-white px-6 py-5 shadow-soft">
               <p className="font-body text-sm text-ink-700 text-center">
                 <span className="font-semibold text-ink-800">Based in</span>{" "}
-                Kebili, Tunisia &mdash; open to remote and on-site roles.
+                Kebili, Tunisie &mdash;open to remote and on-site internships.
               </p>
             </div>
           </div>
