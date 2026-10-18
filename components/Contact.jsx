@@ -1,73 +1,76 @@
 "use client";
 
-import { Mail, Linkedin, Github, Phone } from "lucide-react";
-
-const contactLinks = [
-  {
-    icon: Mail,
-    label: "blidaouiibtihel22@gmail.com",
-    href: "mailto:blidaouiibtihel22@gmail.com",
-  },
-  {
-    icon: Linkedin,
-    label: "linkedin.com/in/ibtihel-blidaoui",
-    href: "https://linkedin.com/in/ibtihel-blidaoui",
-  },
-  {
-    icon: Github,
-    label: "github.com/blidaoui",
-    href: "https://github.com/blidaoui",
-  },
-  {
-    icon: Phone,
-    label: "+216 99 985 908",
-    href: "tel:+21699985908",
-  },
-];
+import { Github, Linkedin, Mail, Phone } from "lucide-react";
+import { useLang } from "@/lib/LanguageProvider";
+import { links } from "@/lib/content";
+import SectionHeading from "@/components/SectionHeading";
 
 export default function Contact() {
+  const { t } = useLang();
+  const c = t.contact;
+
+  const rows = [
+    {
+      icon: Mail,
+      label: c.email,
+      value: links.email,
+      href: `mailto:${links.email}`,
+    },
+    {
+      icon: Linkedin,
+      label: c.linkedin,
+      value: "linkedin.com/in/ibtihel-blidaoui",
+      href: links.linkedin,
+      external: true,
+    },
+    {
+      icon: Github,
+      label: c.github,
+      value: "github.com/blidaoui",
+      href: links.github,
+      external: true,
+    },
+    {
+      icon: Phone,
+      label: c.phone,
+      value: links.phone,
+      href: links.phoneHref,
+    },
+  ];
+
   return (
-    <section id="contact" className="py-24 sm:py-32 bg-white">
-      <div className="mx-auto max-w-5xl px-6">
-        <div className="text-center mb-14">
-          <span className="font-display font-semibold text-sm uppercase tracking-wide text-blossom-500">
-            Contact
-          </span>
-          <h2 className="mt-3 font-display font-bold text-3xl sm:text-4xl text-ink-900">
-            Let&rsquo;s build something together
-          </h2>
-          <p className="mt-4 font-body text-ink-700 max-w-xl mx-auto">
-            I&rsquo;mlooking for an international internship, remote or on-site, in full-stack or AI-driven development. If your team needs a developer comfortable across the stack, with a growing focus on AI, I&rsquo;d love to hear from you.
+    <section id="contact" className="py-24 sm:py-28 border-t border-line bg-surface/40">
+      <div className="mx-auto max-w-6xl px-6 grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+        <div>
+          <SectionHeading>{c.title}</SectionHeading>
+          <p className="mt-6 text-base sm:text-lg text-soft max-w-xl">{c.text}</p>
+          <p className="mt-6 text-sm text-soft border-s-2 border-accent ps-4 max-w-xl">
+            {c.based}
           </p>
         </div>
 
-        <div className="flex flex-col items-center gap-4">
-          <div className="flex flex-col gap-4 w-full max-w-lg">
-            {contactLinks.map(({ icon: Icon, label, href }) => (
+        <ul className="space-y-3">
+          {rows.map(({ icon: Icon, label, value, href, external }) => (
+            <li key={label}>
               <a
-                key={label}
                 href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="group flex items-center gap-3 rounded-3xl border border-lavender-100 bg-gradient-to-br from-skyblue-50 to-white px-6 py-5 shadow-soft hover:shadow-glow-hover hover:-translate-y-0.5 transition-all"
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                className="flex items-center gap-4 rounded-xl border border-line bg-surface px-5 py-4 transition-colors hover:border-accent"
               >
-                <span className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-lavender-600 shrink-0">
+                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface2 text-accent-ink">
                   <Icon size={18} />
                 </span>
-                <span className="font-body font-medium text-ink-800 text-sm sm:text-base break-all">
-                  {label}
+                <span className="min-w-0">
+                  <span className="block text-xs text-soft">{label}</span>
+                  <span className="ltr-isolate block font-medium break-all">
+                    {value}
+                  </span>
                 </span>
               </a>
-            ))}
-
-            <div className="rounded-3xl border border-blossom-100 bg-gradient-to-br from-blossom-50 to-white px-6 py-5 shadow-soft">
-              <p className="font-body text-sm text-ink-700 text-center">
-                <span className="font-semibold text-ink-800">Based in</span>{" "}
-                Kebili, Tunisie &mdash;open to remote and on-site internships.
-              </p>
-            </div>
-          </div>
-        </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

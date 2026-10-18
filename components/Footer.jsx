@@ -1,43 +1,40 @@
+"use client";
+
 import { Github, Linkedin, Mail } from "lucide-react";
+import { useLang } from "@/lib/LanguageProvider";
+import { links } from "@/lib/content";
 
 export default function Footer() {
-  return (
-    <footer className="bg-gradient-to-b from-white to-lavender-50 border-t border-lavender-100">
-      <div className="mx-auto max-w-6xl px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-5">
-        <p className="font-display font-semibold gradient-text text-lg">
-          Ibtihel Blidaoui
-        </p>
+  const { t } = useLang();
 
-        <div className="flex items-center gap-4">
-          <a
-            href="https://github.com/blidaoui"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-            className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-ink-700 hover:text-lavender-600 hover:-translate-y-0.5 transition-all"
-          >
-            <Github size={18} />
-          </a>
-          <a
-            href="https://linkedin.com/in/ibtihel-blidaoui"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-ink-700 hover:text-skyblue-600 hover:-translate-y-0.5 transition-all"
-          >
-            <Linkedin size={18} />
-          </a>
-          <a
-            href="mailto:blidaouiibtihel22@gmail.com"
-            aria-label="Email"
-            className="w-10 h-10 rounded-full bg-white shadow-sm flex items-center justify-center text-ink-700 hover:text-blossom-600 hover:-translate-y-0.5 transition-all"
-          >
-            <Mail size={18} />
-          </a>
+  const social = [
+    { icon: Github, label: "GitHub", href: links.github, external: true },
+    { icon: Linkedin, label: "LinkedIn", href: links.linkedin, external: true },
+    { icon: Mail, label: t.contact.email, href: `mailto:${links.email}` },
+  ];
+
+  return (
+    <footer className="border-t border-line">
+      <div className="mx-auto max-w-6xl px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <p className="font-display font-bold text-lg">Ibtihel Blidaoui</p>
+
+        <div className="flex items-center gap-3">
+          {social.map(({ icon: Icon, label, href, external }) => (
+            <a
+              key={label}
+              href={href}
+              target={external ? "_blank" : undefined}
+              rel={external ? "noopener noreferrer" : undefined}
+              aria-label={label}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line bg-surface text-soft hover:text-fg hover:border-accent transition-colors"
+            >
+              <Icon size={18} />
+            </a>
+          ))}
         </div>
 
-        <p className="font-body text-sm text-ink-600">
-          © {new Date().getFullYear()} Ibtihel Blidaoui. Made with care.
+        <p className="text-sm text-soft">
+          © {new Date().getFullYear()} Ibtihel Blidaoui. {t.footer.made}
         </p>
       </div>
     </footer>

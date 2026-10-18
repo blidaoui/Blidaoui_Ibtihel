@@ -2,56 +2,114 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------- Theme tokens (space-separated RGB channels) ---------- */
+:root,
+:root[data-theme="dark"] {
+  --bg: 11 25 41;
+  --surface: 21 42 66;
+  --surface2: 27 56 88;
+  --fg: 237 243 249;
+  --soft: 165 191 216;
+  --line: 52 84 118;
+  --accent-ink: 242 165 65;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: 243 246 251;
+  --surface: 255 255 255;
+  --surface2: 232 239 247;
+  --fg: 15 34 54;
+  --soft: 69 91 117;
+  --line: 196 210 226;
+  --accent-ink: 146 78 0;
+  color-scheme: light;
+}
+
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
-  background-color: #FFFBFE;
-  color: #332E3C;
+  background-color: rgb(var(--bg));
+  color: rgb(var(--fg));
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 ::selection {
-  background-color: #F8B6D0;
-  color: #332E3C;
+  background-color: #f2a541;
+  color: #0f2236;
 }
 
-/* Glassmorphism card */
-.glass-card {
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
+/* ---------- Arabic (RTL) typography ---------- */
+html[lang="ar"] body {
+  font-family: "IBM Plex Sans Arabic", "IBM Plex Sans", system-ui, sans-serif;
+  line-height: 1.8;
 }
 
-.glass-card-soft {
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+html[lang="ar"] h1,
+html[lang="ar"] h2,
+html[lang="ar"] h3 {
+  font-family: "IBM Plex Sans Arabic", "Space Grotesk", system-ui, sans-serif;
+  line-height: 1.35 !important;
+  letter-spacing: 0 !important;
 }
 
-/* Gradient text */
-.gradient-text {
-  background: linear-gradient(90deg, #8957C2, #D14C81, #3489BD);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Keep technical strings (emails, dates, stack names) readable inside RTL text */
+.ltr-isolate {
+  direction: ltr;
+  unicode-bidi: isolate;
 }
 
-/* Soft focus ring for inputs */
-.soft-focus:focus {
-  outline: none;
-  box-shadow: 0 0 0 4px rgba(188, 151, 230, 0.35);
+/* ---------- Decorative background grid ---------- */
+.dot-grid {
+  background-image: radial-gradient(
+    rgb(var(--line) / 0.7) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+  -webkit-mask-image: radial-gradient(
+    ellipse at 70% 35%,
+    #000 0%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(ellipse at 70% 35%, #000 0%, transparent 72%);
 }
 
-/* Visible keyboard focus for accessibility, kept soft but clear */
+/* ---------- The one signature motion: data flowing between layers ---------- */
+.flow {
+  position: relative;
+  width: 2px;
+  height: 30px;
+  margin-inline: auto;
+  background: rgb(var(--line));
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.flow::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: -12px;
+  height: 12px;
+  background: linear-gradient(to bottom, transparent, #f2a541);
+  animation: flow-down 2.2s linear infinite;
+  animation-delay: var(--flow-delay, 0s);
+}
+
+@keyframes flow-down {
+  to {
+    top: 100%;
+  }
+}
+
+/* ---------- Focus visibility ---------- */
 a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
-  outline: 3px solid #A374D9;
-  outline-offset: 2px;
+button:focus-visible {
+  outline: 3px solid #f2a541;
+  outline-offset: 3px;
   border-radius: 0.5rem;
 }
 

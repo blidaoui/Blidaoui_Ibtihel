@@ -1,58 +1,61 @@
-import { MapPin, GraduationCap, Languages } from "lucide-react";
+"use client";
 
-const chips = [
-  { icon: MapPin, label: "Kebili, Tunisie" },
-  { icon: GraduationCap, label: "Software Engineering, ESSAT" },
-  { icon: Languages, label: "Arabic · French · English" },
-];
+import { MapPin, GraduationCap, Languages } from "lucide-react";
+import { useLang } from "@/lib/LanguageProvider";
+import SectionHeading from "@/components/SectionHeading";
+
+const factIcons = {
+  location: MapPin,
+  education: GraduationCap,
+  languages: Languages,
+};
 
 export default function About() {
-  return (
-    <section id="about" className="py-24 sm:py-32 bg-white">
-      <div className="mx-auto max-w-5xl px-6">
-        <div className="text-center mb-14">
-          <span className="font-display font-semibold text-sm uppercase tracking-wide text-blossom-500">
-            About me
-          </span>
-          <h2 className="mt-3 font-display font-bold text-3xl sm:text-4xl text-ink-900">
-            Secure, AI-powered full-stack development with real project impact          </h2>
-        </div>
+  const { t } = useLang();
+  const a = t.about;
 
-        <div className="glass-card-soft rounded-5xl shadow-soft p-6 sm:p-10 md:p-12 grid md:grid-cols-[auto_1fr] gap-10 items-center bg-gradient-to-br from-lavender-50 via-blossom-50 to-skyblue-50">
-          <div className="flex justify-center md:justify-start">
-            <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full bg-gradient-to-br from-lavender-300 via-blossom-300 to-skyblue-300 p-1.5 shadow-soft animate-floaty">
-              <div className="w-full h-full rounded-full bg-white flex items-center justify-center overflow-hidden">
-                <img
-                  src="PhotoBlidaoui.jpg"
-                  alt="Ibtihel Blidaoui"
-                  className="w-full h-full object-cover rounded-full"
-                />
-              </div>
-            </div>
+  return (
+    <section id="about" className="py-24 sm:py-28 border-t border-line">
+      <div className="mx-auto max-w-6xl px-6">
+        <SectionHeading>{a.title}</SectionHeading>
+
+        <div className="mt-14 grid md:grid-cols-[260px_1fr] gap-12 md:gap-16 items-start">
+          <div className="relative w-56 sm:w-64 mx-auto md:mx-0">
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 translate-x-3 translate-y-3 rtl:-translate-x-3 rounded-2xl border border-accent"
+            />
+            <img
+              src="/PhotoBlidaoui.jpg"
+              alt={a.photoAlt}
+              width={839}
+              height={839}
+              loading="lazy"
+              className="relative w-full aspect-[4/5] object-cover object-top rounded-2xl border border-line bg-surface"
+            />
           </div>
 
           <div>
-            <p className="font-body text-ink-700 text-base sm:text-lg leading-relaxed">
-              Software engineering student with hands-on full-stack experience across three internships, building production features end-to-end — from REST APIs in NestJS and Node.js/Express to responsive interfaces in Next.js and React, backed by PostgreSQL.            </p>
-            <p className="mt-4 font-body text-ink-700 text-base sm:text-lg leading-relaxed">
-              Currently building the AI service of a recruitment platform — parsing CVs, extracting skills, and matching candidates to job offers. Also built a contact-free, gesture- and voice-controlled system for operating-room equipment, combining computer vision and speech recognition.
-            </p>
-
-            <p className="mt-4 font-body text-ink-700 text-base sm:text-lg leading-relaxed">
-              Comfortable owning a feature across the stack, working in Agile teams, and writing secure, maintainable code.
-            </p>
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              {chips.map(({ icon: Icon, label }) => (
-                <span
-                  key={label}
-                  className="inline-flex items-center gap-2 rounded-full bg-white/70 border border-lavender-200 px-4 py-2 text-sm font-body font-medium text-ink-700 shadow-sm"
-                >
-                  <Icon size={15} className="text-blossom-500" />
-                  {label}
-                </span>
-              ))}
+            <div className="space-y-5 text-base sm:text-lg text-soft max-w-2xl">
+              <p>{a.p1}</p>
+              <p>{a.p2}</p>
+              <p>{a.p3}</p>
             </div>
+
+            <dl className="mt-10 pt-8 border-t border-line grid sm:grid-cols-3 gap-6">
+              {Object.entries(a.facts).map(([key, fact]) => {
+                const Icon = factIcons[key];
+                return (
+                  <div key={key}>
+                    <dt className="flex items-center gap-2 text-sm text-soft">
+                      <Icon size={15} className="text-accent-ink" />
+                      {fact.label}
+                    </dt>
+                    <dd className="mt-1.5 font-medium">{fact.value}</dd>
+                  </div>
+                );
+              })}
+            </dl>
           </div>
         </div>
       </div>

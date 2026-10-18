@@ -1,82 +1,121 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useLang } from "@/lib/LanguageProvider";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import ThemeToggle from "@/components/ThemeToggle";
 
-const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Resume", href: "#resume" },
-];
+const sections = ["about", "skills", "experience", "projects", "resume"];
 
 export default function Navbar() {
+  const { t } = useLang();
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("");
+  const [scrolled, setScrolled] = useState(false);
+
+  // Highlight the link of the section currently in view.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50">
-      <nav className="mx-auto max-w-6xl px-4 sm:px-6 mt-4">
-        <div className="flex items-center justify-between rounded-full glass-card shadow-soft px-5 py-3">
-          <a
-            href="#home"
-            className="font-display font-bold text-lg sm:text-xl gradient-text"
-          >
-            Ibtihel Blidaoui
-          </a>
+    <header
+      className={`fixed top-0 inset-x-0 z-50 transition-colors ${
+        scrolled || open
+          ? "bg-bg/85 backdrop-blur-md border-b border-line"
+          : "border-b border-transparent"
+      }`}
+    >
+      <nav className="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between gap-4">
+        <a
+          href="#home"
+          aria-label={t.nav.home}
+          className="font-display font-bold text-base sm:text-lg tracking-tight whitespace-nowrap"
+        >
+          Ibtihel Blidaoui
+        </a>
 
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="font-body font-semibold text-sm text-ink-700 hover:text-lavender-600 transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
+        <div className="hidden lg:flex items-center gap-7">
+          {sections.map((id) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              aria-current={active === id ? "true" : undefined}
+              className={`text-sm font-medium transition-colors border-b-2 py-1 ${
+                active === id
+                  ? "text-fg border-accent"
+                  : "text-soft border-transparent hover:text-fg"
+              }`}
+            >
+              {t.nav[id]}
+            </a>
+          ))}
+        </div>
 
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher />
+          <ThemeToggle />
           <a
             href="#contact"
-            className="hidden md:inline-flex items-center rounded-full bg-gradient-to-r from-lavender-400 to-blossom-400 text-white text-sm font-semibold px-5 py-2 shadow-soft hover:shadow-pink-glow-hover transition-shadow"
+            className="hidden lg:inline-flex items-center rounded-lg bg-accent text-on-accent text-sm font-semibold px-4 h-9 hover:brightness-105 transition"
           >
-            Contact me
+            {t.nav.contact}
           </a>
-
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full text-ink-700 hover:bg-white/60 transition-colors"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? t.nav.closeMenu : t.nav.openMenu}
             aria-expanded={open}
+            className="lg:hidden inline-flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-surface text-fg"
           >
-            {open ? <X size={22} /> : <Menu size={22} />}
+            {open ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
+      </nav>
 
-        {open && (
-          <div className="md:hidden mt-3 glass-card rounded-3xl shadow-soft px-6 py-5 flex flex-col gap-4">
-            {navLinks.map((link) => (
+      {open && (
+        <div className="lg:hidden border-t border-line bg-bg/95 backdrop-blur-md">
+          <div className="mx-auto max-w-6xl px-6 py-5 flex flex-col gap-1">
+            {sections.map((id) => (
               <a
-                key={link.href}
-                href={link.href}
+                key={id}
+                href={`#${id}`}
                 onClick={() => setOpen(false)}
-                className="font-body font-semibold text-ink-700 hover:text-lavender-600 transition-colors"
+                className="py-2.5 text-base font-medium text-soft hover:text-fg"
               >
-                {link.label}
+                {t.nav[id]}
               </a>
             ))}
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-lavender-400 to-blossom-400 text-white text-sm font-semibold px-5 py-2.5 shadow-soft"
+              className="mt-3 inline-flex items-center justify-center rounded-lg bg-accent text-on-accent font-semibold px-4 h-11"
             >
-              Contact me
+              {t.nav.contact}
             </a>
           </div>
-        )}
-      </nav>
+        </div>
+      )}
     </header>
   );
 }

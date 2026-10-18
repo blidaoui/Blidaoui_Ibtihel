@@ -1,51 +1,106 @@
-import { ArrowRight, Sparkles } from "lucide-react";
+"use client";
+
+import { Fragment } from "react";
+import { ArrowRight, Download } from "lucide-react";
+import { useLang } from "@/lib/LanguageProvider";
+import { heroLayers, CV_FILE } from "@/lib/content";
 
 export default function Hero() {
+  const { t } = useLang();
+
   return (
     <section
       id="home"
-      className="relative overflow-hidden bg-hero-gradient pt-36 pb-24 sm:pt-44 sm:pb-32"
+      className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-      >
-        <div className="absolute -top-10 -left-16 w-72 h-72 bg-blossom-200/60 blur-3xl animate-blob" />
-        <div className="absolute top-32 -right-10 w-80 h-80 bg-skyblue-200/60 blur-3xl animate-blob" />
-        <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-lavender-200/60 blur-3xl animate-blob" />
-      </div>
+      <div aria-hidden="true" className="absolute inset-0 dot-grid" />
 
-      <div className="relative mx-auto max-w-5xl px-6 text-center">
-        <div className="inline-flex items-center gap-2 rounded-full glass-card px-4 py-1.5 mb-8 shadow-soft">
-          <Sparkles size={16} className="text-blossom-500" />
-          <span className="font-body font-semibold text-sm text-ink-700">
-            Open to internship opportunities — remote or on-site          </span>
+      <div className="relative mx-auto max-w-6xl px-6 grid lg:grid-cols-[1.1fr_0.9fr] gap-14 lg:gap-10 items-center">
+        <div>
+          <p className="inline-flex items-center gap-2.5 rounded-full border border-line bg-surface/70 px-4 py-1.5 text-sm text-soft">
+            <span className="h-2 w-2 rounded-full bg-accent" aria-hidden="true" />
+            {t.hero.status}
+          </p>
+
+          <h1 className="mt-8 font-display font-bold text-5xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight">
+            {t.hero.name}
+          </h1>
+
+          <p className="mt-6 max-w-xl font-display font-medium text-xl sm:text-2xl leading-snug">
+            {t.hero.lead}
+          </p>
+
+          <p className="mt-5 max-w-xl text-base sm:text-lg text-soft">
+            {t.hero.text}
+          </p>
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            <a
+              href="#projects"
+              className="group inline-flex items-center gap-2 rounded-lg bg-accent text-on-accent font-semibold px-6 h-12 hover:brightness-105 transition"
+            >
+              {t.hero.ctaProjects}
+              <ArrowRight
+                size={18}
+                className="transition-transform group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1"
+              />
+            </a>
+            <a
+              href={CV_FILE}
+              download
+              className="inline-flex items-center gap-2 rounded-lg border border-line bg-surface/70 font-semibold px-6 h-12 hover:border-accent transition-colors"
+            >
+              <Download size={18} />
+              {t.hero.ctaCv}
+            </a>
+          </div>
         </div>
 
-        <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-6xl leading-tight text-ink-900">
-          Hi, I&rsquo;m <span className="gradient-text">Ibtihel</span>
-          <br className="hidden sm:block" />
-          and I build secure, AI-powered web applications.
-        </h1>
-
-        <p className="mt-6 max-w-2xl mx-auto font-body text-base sm:text-lg text-ink-700">
-          Full-stack developer with end-to-end internship experience &mdash; REST APIs in NestJS, responsive interfaces in Next.js and React, and a gesture- and voice-controlled system for operating rooms.
-        </p>
-
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-          <a
-            href="#projects"
-            className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-lavender-400 via-blossom-400 to-skyblue-400 text-white font-display font-semibold px-7 py-3.5 shadow-soft hover:shadow-pink-glow-hover transition-all hover:-translate-y-0.5"
-          >
-            Explore projects
-            <ArrowRight
-              size={18}
-              className="transition-transform group-hover:translate-x-1"
-            />
-          </a>
-
-        </div>
+        <StackDiagram />
       </div>
     </section>
+  );
+}
+
+function StackDiagram() {
+  const { t } = useLang();
+
+  return (
+    <figure className="rounded-2xl border border-line bg-surface/70 p-5 sm:p-7 backdrop-blur-sm">
+      <figcaption className="text-sm text-soft mb-5">
+        {t.hero.diagramCaption}
+      </figcaption>
+
+      <div>
+        {heroLayers.map((layer, i) => (
+          <Fragment key={layer.key}>
+            <div
+              className={`flex items-center justify-between gap-4 rounded-xl border px-4 py-3.5 ${
+                layer.highlight
+                  ? "border-accent bg-surface2 shadow-accent-glow"
+                  : "border-line bg-bg/60"
+              }`}
+            >
+              <span className="font-display font-semibold">
+                {t.hero.layers[layer.key]}
+              </span>
+              <span
+                dir="ltr"
+                className="font-mono text-xs sm:text-[13px] text-soft text-end"
+              >
+                {layer.tech}
+              </span>
+            </div>
+            {i < heroLayers.length - 1 && (
+              <div
+                aria-hidden="true"
+                className="flow"
+                style={{ "--flow-delay": `${i * 0.7}s` }}
+              />
+            )}
+          </Fragment>
+        ))}
+      </div>
+    </figure>
   );
 }
