@@ -28,7 +28,7 @@ lib/
   content.js        → links, project tags, repo URLs, hero diagram layers
   LanguageProvider.jsx → language state, <html lang/dir> handling
 public/
-  blidaouiCv.pdf    → CV linked from the buttons (file name is case-sensitive on Vercel)
+  BlidaouiCv.pdf    → CV linked from the buttons (file name is case-sensitive on Vercel)
   PhotoBlidaoui.jpg → profile photo
 ```
 
@@ -37,7 +37,7 @@ public/
 - **Text / translations:** `lib/translations.js`. Each language has the same structure; keep the keys identical.
 - **Project links:** `lib/content.js` → `projectsMeta`. Replace the `repoUrl` values marked `TODO` with your real repositories (a card without `repoUrl` simply shows no link).
 - **Colors:** theme tokens at the top of `app/globals.css`; the amber accent is in `tailwind.config.js`.
-- **CV:** replace `public/blidaouiCv.pdf` (keep the same file name).
+- **CV:** replace `public/BlidaouiCv.pdf` (keep the same file name).
 
 ## Deploying
 
